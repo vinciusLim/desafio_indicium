@@ -9,6 +9,7 @@ Para iniciar um projeto Meltano, utilize o comando: `meltano init MEU_PROJETO`
 ## Transferência de CSV Externo para CSV Local
 
 O primeiro passo é pegar arquivos CSV de detalhes de compras locais e consolidá-los em um único arquivo CSV.
+```
 
 ### Comando
 
@@ -164,9 +165,7 @@ FROM (
         o.order_id = od.order_id
 ) AS subquery
 WHERE
-```
     preco_total_bruto > 2000;
 ```
 
-Esta documentação descreve os passos para configurar e executar a transferência de dados usando Meltano, desde a inicialização do projeto até a configuração e execução de taps e targets para diversas fontes e destinos de dados.
 ```
