@@ -147,7 +147,7 @@ O último passo é importar arquivos CSV locais para um banco de dados de destin
 
 ## Consulta SQL
 
-Com a consulta abaixo, é possível visualizar pedidos com valor bruto maior que 2000:
+Com a consulta abaixo, é possível visualizar pedidos com valor bruto maior que 2000, salvo na pasta data:
 
 ```sql
 SELECT * 
@@ -165,6 +165,4 @@ FROM (
 ) AS subquery
 WHERE
     preco_total_bruto > 2000;
-```
-
 ```
