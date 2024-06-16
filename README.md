@@ -3,11 +3,8 @@
 
 ## Iniciando o Projeto
 
-Para iniciar um projeto Meltano, utilize o comando:
+Para iniciar um projeto Meltano, utilize o comando: `meltano init MEU_PROJETO`
 
-```bash
-meltano init MEU_PROJETO
-```
 
 ## Transferência de CSV Externo para CSV Local
 
@@ -166,7 +163,8 @@ FROM (
     ON 
         o.order_id = od.order_id
 ) AS subquery
-WHERE 
+WHERE
+```
     preco_total_bruto > 2000;
 ```
 
