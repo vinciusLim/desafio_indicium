@@ -1,0 +1,77 @@
+version: 1
+default_environment: dev
+project_id: 61596f47-a523-4d72-8166-c601203313b7
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      sqlalchemy_url: postgresql://postgres:1234@localhost:5432/banco_origem
+      filter_schemas: [public]
+  - name: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: order_details
+        path: dados/dados.csv
+        keys:
+        - order_id
+  - name: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files: [{entity: order_details, path: data/csv/2024-06-15/dados.csv, keys: [
+            order_id, product_id]}, {entity: categories, path: data/postgres/public-categories/2024-06-15/dados.csv,
+          keys: [category_id]}, {entity: customers, path: data/postgres/public-customers/2024-06-15/dados.csv,
+          keys: [customer_id]}, {entity: employee_territories, path: data/postgres/public-employee_territories/2024-06-15/dados.csv,
+          keys: [employee_id, territory_id]}, {entity: employees, path: data/postgres/public-employees/2024-06-15/dados.csv,
+          keys: [employee_id]}, {entity: orders, path: data/postgres/public-orders/2024-06-15/dados.csv,
+          keys: [order_id]}, {entity: products, path: data/postgres/public-products/2024-06-15/dados.csv,
+          keys: [product_id]}, {entity: region, path: data/postgres/public-region/2024-06-15/dados.csv,
+          keys: [region_id]}, {entity: shippers, path: data/postgres/public-shippers/2024-06-15/dados.csv,
+          keys: [shipper_id]}, {entity: suppliers, path: data/postgres/public-suppliers/2024-06-15/dados.csv,
+          keys: [supplier_id]}, {entity: territories, path: data/postgres/public-territories/2024-06-15/dados.csv,
+          keys: [territory_id]}, {entity: us_states, path: data/postgres/public-us_states/2024-06-15/dados.csv,
+          keys: [state_id]}]
+  loaders:
+  - name: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      validate_records: false
+      add_record_metadata: false
+      file_naming_scheme: 'data/postgres/{stream_name}/{datestamp}/dados.csv '
+      default_target_schema: public
+      default_target_table: dados_table
+  - name: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      file_naming_scheme: 'data/csv/{datestamp}/dados.csv'
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      sqlalchemy_url: postgresql://postgres:1234@localhost:5432/banco_destino
+      default_target_schema: public
+      default_target_table: dados_table
+      add_record_metadata: false
+      activate_version: false
+  orchestrators:
+  - name: airflow
+    variant: apache
+    pip_url: apache-airflow==2.1.2 --constraint 
+      https://raw.githubusercontent.com/apache/airflow/constraints-2.1.2/constraints-${MELTANO__PYTHON_VERSION}.txt
+    config:
+      webserver:
+        web_server_port: '8080'
+  files:
+  - name: files-airflow
+    variant: meltano
+    pip_url: git+https://github.com/meltano/files-airflow.git
