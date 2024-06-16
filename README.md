@@ -1,4 +1,4 @@
-```markdown
+
 # Documentação do Desafio de Código Técnico da Indicium
 
 ## Iniciando o Projeto
@@ -9,7 +9,6 @@ Para iniciar um projeto Meltano, utilize o comando: `meltano init MEU_PROJETO`
 ## Transferência de CSV Externo para CSV Local
 
 O primeiro passo é pegar arquivos CSV de detalhes de compras locais e consolidá-los em um único arquivo CSV.
-```
 
 ### Comando
 
