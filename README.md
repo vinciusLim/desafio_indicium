@@ -1,5 +1,3 @@
-Vamos ajustar a formatação para que a documentação fique mais clara e organizada ao ser visualizada em um arquivo `README.md` no GitHub. Aqui está a versão revisada:
-
 ```markdown
 # Documentação do Desafio de Código Técnico da Indicium
 
@@ -174,5 +172,3 @@ WHERE
 
 Esta documentação descreve os passos para configurar e executar a transferência de dados usando Meltano, desde a inicialização do projeto até a configuração e execução de taps e targets para diversas fontes e destinos de dados.
 ```
-
-Com essa formatação, a documentação deve ficar mais clara e organizada quando visualizada no GitHub. Cada seção está bem delineada, e as configurações estão apresentadas de maneira que facilita a leitura e a compreensão.
